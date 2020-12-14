@@ -8,3 +8,8 @@ export function saveCache(key: string, data: any) {
 export async function getCache(key: string) {
     return await cache.get(key)
 }
+
+export async function getAllCache() {
+    return await cache.getAll('chave')
+}
+

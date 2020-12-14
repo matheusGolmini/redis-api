@@ -17,6 +17,20 @@ class Cache {
         return value ? JSON.parse(value) : null;
     }
 
+    public async getAll(prefix: string) {
+        const keys = await this.connection.keys(`cache:${prefix}:*`);
+        const newKeys = keys.map((value:any) => value.replace("cache:", ""));
+        console.log(newKeys)
+        const values = []
+        for (let index = 0; index < newKeys.length; index++) {
+            const element = await this.get(newKeys[index])
+            console.log(element)
+            values.push(element)
+        }
+
+        return values;
+    }
+
     public set(key: string, value: any, timeExp: number): void {
         this.connection.set(key, JSON.stringify(value), 'EX', timeExp);
     }

@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { getCache, saveCache } from '../controllers/cache'
+import { getCache, saveCache, getAllCache } from '../controllers/cache'
 
 const router = Router();
 
@@ -16,6 +16,11 @@ router.post('/save/cache', (req: Request, res: Response) => {
 
 router.get('/cache', async (req: Request, res: Response) => {
     const result = await getCache(String(req.query.key));
+    return res.status(200).send(result);
+})
+
+router.get('/cache/all', async (__: Request, res: Response) => {
+    const result = await getAllCache();
     return res.status(200).send(result);
 })
 
